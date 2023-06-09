@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from time import sleep
 
+
 from torch.utils import data
 from torch.utils.data import Dataset, DataLoader
 
@@ -61,7 +62,6 @@ class StockMarketDataset(Dataset):
         self.data[:,0] = (self.data[:,0] % 86400)/86400 # mod the unix time by seconds in a day and divide by seconds in a day
         self.data = np.delete(self.data, 2, 1) # delete the ETHUSD colummn
         self.data = np.delete(self.data, 1, 1) # delete the date time column
-        self.data = np.delete(self.data, 0, 1) # delete the time column
 
 
         self.data = self.data.astype(np.float32)
@@ -96,6 +96,7 @@ class StockMarketDataset(Dataset):
         return torch.flatten(X),Y, price
 
 
+#this is not compatable, do not use
 class YahooFinaceDataset(Dataset):
     def __init__(self, csvfile, view_distance) -> None:
         super().__init__()
